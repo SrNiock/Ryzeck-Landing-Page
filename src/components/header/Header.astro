@@ -1,0 +1,168 @@
+<section class="hero">
+    <div class="badge">
+        <span class="dot"></span>
+        <p>Impulsando la Transformación Digital</p>
+    </div>
+
+    <h1>
+        Construimos el <span class="highlight">Futuro Digital</span> de tu proyecto
+    </h1>
+
+    <p>
+        En Ryzeck, transformamos ideas audaces en aplicaciones web y móviles de
+        alto impacto. Especialistas en SaaS y desarrollo a medida para empresas
+        que no se detienen.
+    </p>
+
+    <button class="btn-primary">
+        HABLEMOS DE TU IDEA <span>→</span>
+    </button>
+</section>
+
+<style>
+    .hero {
+        background-color: #000;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        /*min-height: 80vh;*/
+        padding: 2rem;
+        gap: 1.5rem;
+        color: aliceblue;
+        font-family: "Inter", sans-serif;
+    }
+
+    h1 {
+        font-size: clamp(2.5rem, 6vw, 4rem);
+        line-height: 1.1;
+        max-width: 970px;
+        color: white;
+        text-align: center;
+        margin: 0;
+        animation: fadeInUp 0.6s ease-out 0.2s forwards;
+        opacity: 0;
+    }
+
+    .highlight {
+        color: #4b5563;
+    }
+
+    .hero > p {
+        margin: 0;
+        max-width: 750px;
+        color: #9ca3af;
+        font-size: 1.1rem;
+        line-height: 1.6;
+        text-align: center;
+        animation: fadeInUp 0.6s ease-out 0.4s forwards;
+        opacity: 0;
+    }
+
+    .badge {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        border: 1px solid #374151;
+        padding: 0rem 1rem;
+        border-radius: 9999px;
+        animation: fadeInUp 0.6s ease-out forwards;
+    }
+
+    .badge p {
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.05em;
+        color: #9ca3af;
+    }
+
+    .dot {
+        width: 6px;
+        height: 6px;
+        background-color: #9ca3af;
+        border-radius: 50%;
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .hero {
+            padding: 4rem 1.25rem;
+            gap: 1.25rem;
+            min-height: 70vh;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 8vw, 2.5rem);
+            line-height: 1.2;
+        }
+
+        .hero > p {
+            font-size: 1rem;
+            line-height: 1.5;
+            max-width: 100%;
+        }
+
+        .badge {
+            padding: 0 0.8rem;
+        }
+
+        .badge p {
+            font-size: 0.65rem;
+        }
+    }
+
+    .btn-primary {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        background-color: #f4f4f4;
+        color: black; 
+        text-decoration: none;
+        padding: 1rem 2rem; 
+        border-radius: 4px; 
+        border: none; 
+        cursor: pointer; 
+
+        font-weight: 700; 
+        font-size: 0.9rem; 
+        letter-spacing: 0.05em; 
+        text-transform: uppercase;
+
+        transition:transform 0.2s ease, background-color 0.2s ease;
+
+        animation: fadeInUp 0.6s ease-out 0.6s forwards;
+        opacity: 0;
+    }
+
+    .btn-primary span {
+        font-size: 1.1rem;
+        transition: transform 0.2s ease;
+    }
+
+    .btn-primary:hover {
+        background-color: #e0e0e0; 
+        transform: scale(1.02); 
+    }
+    
+    .btn-primary:hover span {
+        transform: translateX(4px);
+    }
+
+    /*@media (prefers-reduced-motion: reduce) {
+        h1, .hero > p, .badge {
+            animation: none;
+            opacity: 1;
+            transform: none;
+        }
+    */
+</style>

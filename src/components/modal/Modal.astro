@@ -1,0 +1,206 @@
+---
+/* Puedes pasarle props si quieres personalizar el título o el ID */
+---
+
+<dialog id="contact-modal" class="modal">
+  <div class="modal-container">
+    <button id="close-modal" class="close-btn" aria-label="Cerrar modal">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
+
+    <div class="modal-header">
+      <h2>Empecemos tu proyecto</h2>
+      <p>Cuéntanos un poco sobre lo que tienes en mente.</p>
+    </div>
+
+    <form class="modal-form">
+      <div class="form-group-row">
+        <div class="form-group">
+          <label for="name">NOMBRE</label>
+          <input type="text" id="name" name="name" placeholder="Juan Pérez" required />
+        </div>
+        <div class="form-group">
+          <label for="email">EMAIL</label>
+          <input type="email" id="email" name="email" placeholder="juan@startup.com" required />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="type">TIPO DE PROYECTO</label>
+        <select id="type" name="type">
+          <option value="saas">Desarrollo SaaS</option>
+          <option value="web">Aplicación Web</option>
+          <option value="mobile">App Móvil</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="message">MENSAJE</label>
+        <textarea id="message" name="message" rows="4" placeholder="Háblanos de tu idea..."></textarea>
+      </div>
+
+      <button type="submit" class="submit-btn">ENVIAR SOLICITUD</button>
+    </form>
+  </div>
+</dialog>
+
+<style>
+  .modal::backdrop {
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+  }
+
+  .modal {
+    background: #0a0a0a;
+    border: 1px solid #222;
+    border-radius: 16px;
+    padding: 0;
+    max-width: 600px;
+    width: 90%;
+    color: white;
+    font-family: 'Inter', sans-serif;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+  }
+
+  .modal[open] {
+    animation: fadeIn 0.3s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  .modal-container {
+    padding: 2.5rem;
+    position: relative;
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: transparent;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+
+  .close-btn:hover { color: white; }
+
+  .modal-header h2 {
+    font-size: 1.75rem;
+    margin: 0 0 0.5rem 0;
+    letter-spacing: -0.02em;
+  }
+
+  .modal-header p {
+    color: #888;
+    margin: 0 0 2rem 0;
+  }
+
+  .modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .form-group-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 600px) {
+    .form-group-row { grid-template-columns: 1fr; }
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .form-group label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #555;
+    letter-spacing: 0.05em;
+  }
+
+  .form-group input, 
+  .form-group select, 
+  .form-group textarea {
+    background: #111;
+    border: 1px solid #222;
+    padding: 0.8rem;
+    border-radius: 8px;
+    color: white;
+    font-family: inherit;
+    transition: border-color 0.2s;
+  }
+
+  .form-group input:focus, 
+  .form-group select:focus, 
+  .form-group textarea:focus {
+    outline: none;
+    border-color: #444;
+  }
+
+  .submit-btn {
+    background: white;
+    color: black;
+    border: none;
+    padding: 1rem;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: transform 0.2s, background-color 0.2s;
+  }
+
+  .submit-btn:hover {
+    background: #e0e0e0;
+    transform: translateY(-2px);
+  }
+</style>
+
+<script>
+  const setupModal = () => {
+    const modal = document.querySelector('#contact-modal') as HTMLDialogElement;
+    const openBtns = document.querySelectorAll('.btn-contacto, .btn-contacto-mobile, .btn-primary');
+    const closeBtn = document.querySelector('#close-modal');
+
+    if (modal && openBtns && closeBtn) {
+      openBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          modal.showModal();
+          document.body.style.overflow = 'hidden';
+        });
+      });
+
+      closeBtn.addEventListener('click', () => {
+        modal.close();
+        document.body.style.overflow = 'auto'; 
+      });
+
+      modal.addEventListener('click', (e) => {
+        const dialogDimensions = modal.getBoundingClientRect();
+        if (
+          e.clientX < dialogDimensions.left ||
+          e.clientX > dialogDimensions.right ||
+          e.clientY < dialogDimensions.top ||
+          e.clientY > dialogDimensions.bottom
+        ) {
+          modal.close();
+          document.body.style.overflow = 'auto';
+        }
+      });
+    }
+  };
+  
+  setupModal();
+  document.addEventListener('astro:after-swap', setupModal);
+</script>

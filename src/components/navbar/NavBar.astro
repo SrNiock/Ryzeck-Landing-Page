@@ -1,0 +1,259 @@
+<nav class="navbar">
+    <a href="/" class="logo">
+        <h1>Ryzeck</h1>
+    </a>
+
+    <button
+        class="mobile-menu-btn"
+        aria-label="Abrir menú"
+        aria-expanded="false"
+    >
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+    </button>
+
+    <ul class="nav-links">
+        <li><a href="#servicios">SERVICIOS</a></li>
+        <li><a href="#proyectos">PROYECTOS</a></li>
+        <li><a href="#nosotros">NOSOTROS</a></li>
+        <li class="mobile-only">
+            <button class="btn-contacto-mobile">CONTACTO</button>
+        </li>
+    </ul>
+
+    <button class="btn-contacto"> CONTACTO </button>
+</nav>
+
+<style>
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 1.5rem;
+        min-height: 70px;
+        background-color: #000;
+        border-bottom: 1px solid #222;
+        font-family: "Inter", sans-serif;
+        position: relative;
+        z-index: 1000;
+        animation: navFadeIn 0.8s ease-out forwards;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+    }
+
+    .logo {
+        text-decoration: none;
+    }
+    .navbar h1 {
+        color: white;
+        font-size: 1.25rem;
+        margin: 0;
+        letter-spacing: -0.03em;
+    }
+
+    .nav-links {
+        list-style: none;
+        display: flex;
+        gap: 25px;
+        margin: 0;
+        padding: 0;
+    }
+
+    .mobile-only {
+        display: none;
+    }
+
+    .nav-links a {
+        display: inline-block;
+        text-decoration: none;
+        color: #888;
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .nav-links a:hover {
+        color: white;
+        transform: translateY(-2px);
+    }
+
+    .btn-contacto {
+        display: inline-block;
+        background-color: #fff;
+        color: #000;
+        border: none;
+        cursor: pointer;
+
+        padding: 10px 22px;
+        font-family: "Inter", sans-serif;
+        font-weight: 700;
+        font-size: 0.75rem;
+        border-radius: 2px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+
+        transition: background-color 0.2s ease;
+    }
+
+    .btn-contacto:hover {
+        background-color: #e0e0e0;
+    }
+
+    .btn-contacto:active {
+        transform: scale(0.98);
+    }
+
+    .btn-contacto-mobile {
+        background-color: white;
+        color: black;
+        border: none;
+        cursor: pointer;
+        padding: 15px 40px;
+        border-radius: 4px;
+        width: 80%;
+        font-weight: 700;
+        font-family: "Inter", sans-serif;
+        border: none;
+    }
+
+    .mobile-menu-btn {
+        display: none;
+        flex-direction: column;
+        gap: 6px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 10px;
+        z-index: 1001;
+    }
+
+    .bar {
+        width: 25px;
+        height: 2px;
+        background-color: white;
+        transition: all 0.3s ease;
+    }
+
+    .mobile-menu-btn.is-active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+    .mobile-menu-btn.is-active .bar:nth-child(2) {
+        opacity: 0;
+    }
+    .mobile-menu-btn.is-active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+
+    @keyframes navFadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .logo,
+    .nav-links,
+    .btn-contacto {
+        animation: navFadeIn 0.8s ease-out 0.2s forwards;
+        opacity: 0;
+    }
+
+    @media (max-width: 768px) {
+        .mobile-only {
+            display: block;
+            width: 100%;
+            text-align: center;
+        }
+        .btn-contacto {
+            display: none;
+        }
+        .mobile-menu-btn {
+            display: flex;
+        }
+
+        .nav-links {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            width: 100%;
+            height: calc(100vh - 70px);
+            background-color: #000;
+            flex-direction: column;
+            justify-content: flex-start;
+            padding-top: 4rem;
+            align-items: center;
+            gap: 2.5rem;
+
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-20px);
+            transition: all 0.4s ease;
+        }
+
+        .nav-links.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .nav-links a {
+            font-size: 1.5rem;
+        }
+
+        .btn-contacto-mobile {
+            background-color: white;
+            color: black !important;
+            padding: 15px 40px !important;
+            border-radius: 4px;
+            width: 80%;
+        }
+    }
+
+    /*@media (prefers-reduced-motion: reduce) {
+        .navbar, .logo, .nav-links, .btn-contacto {
+            animation: none;
+            opacity: 1;
+        }
+    }*/
+</style>
+
+<script>
+    const initNavbar = () => {
+        const btn = document.querySelector(".mobile-menu-btn") as HTMLElement;
+        const menu = document.querySelector(".nav-links") as HTMLElement;
+
+        if (btn && menu && btn.parentNode) {
+            const newBtn = btn.cloneNode(true) as HTMLElement;
+
+            btn.parentNode.replaceChild(newBtn, btn);
+
+            newBtn.addEventListener("click", () => {
+                const isExpanded =
+                    newBtn.getAttribute("aria-expanded") === "true";
+
+                newBtn.classList.toggle("is-active");
+                menu.classList.toggle("active");
+
+                newBtn.setAttribute("aria-expanded", (!isExpanded).toString());
+                document.body.style.overflow = isExpanded ? "auto" : "hidden";
+            });
+
+            menu.querySelectorAll("a").forEach((link) => {
+                link.addEventListener("click", () => {
+                    newBtn.classList.remove("is-active");
+                    menu.classList.remove("active");
+                    document.body.style.overflow = "auto";
+                });
+            });
+        }
+    };
+
+    initNavbar();
+    document.addEventListener("astro:after-swap", initNavbar);
+</script>
