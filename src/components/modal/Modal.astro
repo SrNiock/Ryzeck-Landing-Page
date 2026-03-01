@@ -1,11 +1,22 @@
----
-/* Puedes pasarle props si quieres personalizar el título o el ID */
----
-
 <dialog id="contact-modal" class="modal">
   <div class="modal-container">
     <button id="close-modal" class="close-btn" aria-label="Cerrar modal">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        ><line x1="18" y1="6" x2="6" y2="18"></line><line
+          x1="6"
+          y1="6"
+          x2="18"
+          y2="18"></line></svg
+      >
     </button>
 
     <div class="modal-header">
@@ -17,26 +28,68 @@
       <div class="form-group-row">
         <div class="form-group">
           <label for="name">NOMBRE</label>
-          <input type="text" id="name" name="name" placeholder="Juan Pérez" required />
+          <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Juan Pérez"
+            required
+          />
         </div>
         <div class="form-group">
           <label for="email">EMAIL</label>
-          <input type="email" id="email" name="email" placeholder="juan@startup.com" required />
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="juan@startup.com"
+            required
+          />
         </div>
       </div>
 
       <div class="form-group">
-        <label for="type">TIPO DE PROYECTO</label>
-        <select id="type" name="type">
-          <option value="saas">Desarrollo SaaS</option>
-          <option value="web">Aplicación Web</option>
-          <option value="mobile">App Móvil</option>
-        </select>
+        <label>TIPO DE PROYECTO</label>
+        <div class="custom-select" id="custom-select">
+          <div class="select-trigger">
+            <span id="select-text">Desarrollo Web (Fullstack)</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg
+            >
+          </div>
+          <div class="select-options">
+            <div class="option selected" data-value="web">
+              Desarrollo Web (Fullstack)
+            </div>
+            <div class="option" data-value="multiplataforma">
+              Desarrollo multiplataforma (iOS & Android)
+            </div>
+            <div class="option" data-value="android">
+              Desarrollo Android Nativo
+            </div>
+            <div class="option" data-value="api">
+              Diseño y Desarrollo de APIs
+            </div>
+          </div>
+          <input type="hidden" name="type" id="real-type-input" value="web" />
+        </div>
       </div>
 
       <div class="form-group">
         <label for="message">MENSAJE</label>
-        <textarea id="message" name="message" rows="4" placeholder="Háblanos de tu idea..."></textarea>
+        <textarea
+          id="message"
+          name="message"
+          rows="4"
+          placeholder="Háblanos de tu idea..."></textarea>
       </div>
 
       <button type="submit" class="submit-btn">ENVIAR SOLICITUD</button>
@@ -58,7 +111,7 @@
     max-width: 600px;
     width: 90%;
     color: white;
-    font-family: 'Inter', sans-serif;
+    font-family: "Inter", sans-serif;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
     overflow: hidden;
   }
@@ -68,8 +121,14 @@
   }
 
   @keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
   }
 
   .modal-container {
@@ -88,7 +147,9 @@
     transition: color 0.2s;
   }
 
-  .close-btn:hover { color: white; }
+  .close-btn:hover {
+    color: white;
+  }
 
   .modal-header h2 {
     font-size: 1.75rem;
@@ -114,7 +175,9 @@
   }
 
   @media (max-width: 600px) {
-    .form-group-row { grid-template-columns: 1fr; }
+    .form-group-row {
+      grid-template-columns: 1fr;
+    }
   }
 
   .form-group {
@@ -130,8 +193,8 @@
     letter-spacing: 0.05em;
   }
 
-  .form-group input, 
-  .form-group select, 
+  .form-group input,
+  .form-group select,
   .form-group textarea {
     background: #111;
     border: 1px solid #222;
@@ -142,8 +205,8 @@
     transition: border-color 0.2s;
   }
 
-  .form-group input:focus, 
-  .form-group select:focus, 
+  .form-group input:focus,
+  .form-group select:focus,
   .form-group textarea:focus {
     outline: none;
     border-color: #444;
@@ -158,35 +221,114 @@
     font-weight: 700;
     cursor: pointer;
     margin-top: 1rem;
-    transition: transform 0.2s, background-color 0.2s;
+    transition:
+      transform 0.2s,
+      background-color 0.2s;
   }
 
   .submit-btn:hover {
     background: #e0e0e0;
     transform: translateY(-2px);
   }
+
+  .custom-select {
+    position: relative;
+    width: 100%;
+    user-select: none;
+  }
+
+  .select-trigger {
+    background: #111;
+    border: 1px solid #222;
+    padding: 0.9rem;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    color: white;
+    font-size: 0.9rem;
+    transition: border-color 0.2s;
+  }
+
+  .custom-select.active .select-trigger {
+    border-color: #444;
+  }
+
+  .select-trigger svg {
+    color: #666;
+    transition: transform 0.3s ease;
+  }
+
+  .custom-select.active .select-trigger svg {
+    transform: rotate(180deg);
+  }
+
+  .select-options {
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
+    width: 100%;
+    background: #0d0d0d;
+    border: 1px solid #222;
+    border-radius: 6px;
+    z-index: 100;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.2s ease;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    overflow: hidden;
+  }
+
+  .custom-select.active .select-options {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .option {
+    padding: 0.9rem;
+    color: #888;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+  }
+
+  .option:hover {
+    background: #1a1a1a;
+    color: white;
+  }
+
+  .option.selected {
+    color: white;
+    background: #151515;
+  }
+
 </style>
 
 <script>
   const setupModal = () => {
-    const modal = document.querySelector('#contact-modal') as HTMLDialogElement;
-    const openBtns = document.querySelectorAll('.btn-contacto, .btn-contacto-mobile, .btn-primary');
-    const closeBtn = document.querySelector('#close-modal');
+    const modal = document.querySelector("#contact-modal") as HTMLDialogElement;
+    const openBtns = document.querySelectorAll(
+      ".btn-contacto, .btn-contacto-mobile, .btn-primary",
+    );
+    const closeBtn = document.querySelector("#close-modal");
 
     if (modal && openBtns && closeBtn) {
-      openBtns.forEach(btn => {
-        btn.addEventListener('click', (e) => {
+      openBtns.forEach((btn) => {
+        btn.addEventListener("click", (e) => {
           modal.showModal();
-          document.body.style.overflow = 'hidden';
+          document.body.style.overflow = "hidden";
         });
       });
 
-      closeBtn.addEventListener('click', () => {
+      closeBtn.addEventListener("click", () => {
         modal.close();
-        document.body.style.overflow = 'auto'; 
+        document.body.style.overflow = "auto";
       });
 
-      modal.addEventListener('click', (e) => {
+      modal.addEventListener("click", (e) => {
         const dialogDimensions = modal.getBoundingClientRect();
         if (
           e.clientX < dialogDimensions.left ||
@@ -195,12 +337,45 @@
           e.clientY > dialogDimensions.bottom
         ) {
           modal.close();
-          document.body.style.overflow = 'auto';
+          document.body.style.overflow = "auto";
         }
       });
     }
   };
-  
+
   setupModal();
-  document.addEventListener('astro:after-swap', setupModal);
+  document.addEventListener("astro:after-swap", setupModal);
+
+  const customSelect = document.getElementById('custom-select');
+  const trigger = customSelect?.querySelector('.select-trigger');
+  const options = customSelect?.querySelectorAll('.option');
+  const text = document.getElementById('select-text');
+  const hiddenInput = document.getElementById('real-type-input') as HTMLInputElement;
+
+  trigger?.addEventListener('click', () => {
+    customSelect?.classList.toggle('active');
+  });
+
+  options?.forEach(opt => {
+    opt.addEventListener('click', () => {
+      const value = opt.getAttribute('data-value');
+      const label = opt.textContent;
+
+      if (value && label) {
+        text!.textContent = label;
+        hiddenInput!.value = value;
+        
+        options.forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+        
+        customSelect?.classList.remove('active');
+      }
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!customSelect?.contains(e.target as Node)) {
+      customSelect?.classList.remove('active');
+    }
+  });
 </script>
