@@ -1,0 +1,228 @@
+<section id="metodologia" class="metodologia">
+  <div class="container">
+    <div class="header-section">
+      <span class="eyebrow">METODOLOGÍA</span>
+      <h2>Cómo damos vida a tu proyecto</h2>
+      <div class="underline"></div>
+    </div>
+
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-number">01</div>
+        <div class="icon-box blue">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        </div>
+        <h3>Descubrimiento</h3>
+        <p>Analizamos tu idea, mercado y objetivos para trazar la mejor ruta técnica.</p>
+      </div>
+
+      <div class="step-card">
+        <div class="step-number">02</div>
+        <div class="icon-box purple">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
+        </div>
+        <h3>Diseño & UX</h3>
+        <p>Creamos interfaces intuitivas y prototipos funcionales que validan la experiencia.</p>
+      </div>
+
+      <div class="step-card">
+        <div class="step-number">03</div>
+        <div class="icon-box green">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <h3>Desarrollo Ágil</h3>
+        <p>Construimos tu producto con sprints iterativos y feedback constante.</p>
+      </div>
+
+      <div class="step-card">
+        <div class="step-number">04</div>
+        <div class="icon-box orange">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 21 3-3"/><path d="m15 6 3-3"/><path d="M5 21l14-14"/><path d="M12 4.89l5.11 5.11"/><path d="M19 11l-2 2"/><path d="M11 19l2-2"/></svg>
+        </div>
+        <h3>Lanzamiento</h3>
+        <p>Desplegamos en producción con monitoreo y soporte continuo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .metodologia {
+    background-color: #050505;
+    padding: 100px 0;
+    font-family: "Inter", sans-serif;
+    color: white;
+    border-bottom: 1px solid #1a1a1a;
+    overflow: hidden; 
+  }
+
+  .container {
+    max-width: 1200px; 
+    margin: 0 auto;    
+    padding: 0 2rem;
+  }
+
+  .header-section,
+  .step-card {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.2, 1, 0.3, 1);
+    will-change: transform, opacity;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .step-card:nth-child(1) { transition-delay: 0.1s; }
+  .step-card:nth-child(2) { transition-delay: 0.2s; }
+  .step-card:nth-child(3) { transition-delay: 0.3s; }
+  .step-card:nth-child(4) { transition-delay: 0.4s; }
+
+  .step-card.reveal:hover {
+    transition: transform 0.3s ease-out, border-color 0.3s ease, background-color 0.3s ease;
+    transition-delay: 0s !important; 
+    
+    transform: translateY(-10px) !important;
+    border-color: #333;
+    background: #0f0f0f;
+  }
+
+  .header-section {
+    margin-bottom: 60px;
+    text-align: left;
+  }
+
+  .eyebrow {
+    color: #9ca3af;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.2em;
+    display: block;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+
+  .header-section h2 {
+    font-size: 2.8rem;
+    font-weight: 800;
+    margin: 0;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  .underline {
+    width: 60px;
+    height: 4px;
+    background-color: white;
+    margin-top: 15px;
+  }
+
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 20px;
+    margin-top: 60px;
+  }
+
+  .step-card {
+    position: relative;
+    padding: 30px 25px;
+    background: #0a0a0a;
+    border: 1px solid #1a1a1a;
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .step-number {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 4rem;
+    font-weight: 900;
+    color: rgba(255, 255, 255, 0.03);
+    line-height: 1;
+    pointer-events: none;
+    z-index: 1;
+    user-select: none;
+  }
+
+  .icon-box {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .icon-box.blue { background: rgba(59, 130, 246, 0.1); color: #3b82f6; }
+  .icon-box.purple { background: rgba(168, 85, 247, 0.1); color: #a855f7; }
+  .icon-box.green { background: rgba(16, 185, 129, 0.1); color: #10b981; }
+  .icon-box.orange { background: rgba(249, 115, 22, 0.1); color: #f97316; }
+
+  .step-card h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .step-card p {
+    color: #888;
+    line-height: 1.6;
+    font-size: 0.9rem;
+    margin: 0;
+    position: relative;
+    z-index: 2;
+  }
+
+  @media (max-width: 1100px) {
+    .steps-grid {
+      grid-template-columns: repeat(2, 1fr); 
+    }
+    .header-section h2 { font-size: 2.2rem; }
+  }
+
+  @media (max-width: 650px) {
+    .steps-grid {
+      grid-template-columns: 1fr;
+    }
+    .metodologia { padding: 60px 0; }
+    .header-section h2 { font-size: 1.8rem; }
+    .step-card { padding: 30px 20px; }
+  }
+</style>
+
+<script>
+  const initAnimations = () => {
+    const observerOptions = {
+      threshold: 0.1, 
+      rootMargin: "0px 0px -50px 0px"
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("reveal");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    const elementsToAnimate = document.querySelectorAll(".header-section, .step-card");
+    elementsToAnimate.forEach((el) => observer.observe(el));
+  };
+
+  initAnimations();
+
+  document.addEventListener("astro:after-swap", initAnimations);
+</script>

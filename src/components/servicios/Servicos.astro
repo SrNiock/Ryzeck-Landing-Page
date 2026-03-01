@@ -88,7 +88,8 @@
                 </div>
                 <h3>MOBILE APPS</h3>
                 <p>
-                    Desarrollo nativo e híbrido para iOS y Android que tus usuarios amarán usar todos los días.
+                    Desarrollo nativo e híbrido para iOS y Android que tus
+                    usuarios amarán usar todos los días.
                 </p>
                 <ul class="features-list">
                     <li>
@@ -152,7 +153,8 @@
                 </div>
                 <h3>Aplicaciones Web</h3>
                 <p>
-                    Experiencias web modernas y ultra-rápidas utilizando las últimas tecnologías como React y Next.js.
+                    Experiencias web modernas y ultra-rápidas utilizando las
+                    últimas tecnologías como React y Next.js.
                 </p>
                 <ul class="features-list">
                     <li>
@@ -199,18 +201,47 @@
 
 <style>
     .services {
-        background-color: #050505;
+        background-color: #0b0a0a;
         padding: 100px 0;
         font-family: "Inter", sans-serif;
         color: white;
         border-top: 1px solid #1a1a1a;
         border-bottom: 1px solid #1a1a1a;
+        overflow: hidden;
     }
 
     .container {
         max-width: 1200px;
         margin: 0 auto;
         padding: 0 2rem;
+    }
+
+    .header-section,
+    .service-card {
+        opacity: 0;
+        transform: translateY(30px);
+        transition:
+            opacity 0.8s ease-out,
+            transform 0.8s cubic-bezier(0.2, 1, 0.3, 1),
+            border-color 0.3s ease,
+            background-color 0.3s ease;
+        will-change: transform, opacity;
+    }
+
+    .service-card.reveal,
+    .header-section.reveal {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .service-card:nth-child(1) {
+        transition-delay: 0.1s;
+    }
+    .service-card:nth-child(2) {
+        transition-delay: 0.2s;
+    }
+    .service-card:nth-child(3) {
+        transition-delay: 0.3s;
     }
 
     .header-section {
@@ -234,7 +265,7 @@
 
     .services-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         gap: 20px;
     }
 
@@ -243,16 +274,22 @@
         border: 1px solid #1a1a1a;
         padding: 40px;
         border-radius: 12px;
-        transition: all 0.3s ease;
         display: flex;
         flex-direction: column;
         gap: 20px;
+        position: relative;
     }
 
-    .service-card:hover {
+    .service-card.reveal:hover {
+        transition:
+            transform 0.3s ease-out,
+            border-color 0.3s ease,
+            background-color 0.3s ease;
+        transition-delay: 0s !important; 
+
+        transform: translateY(-10px) !important;
         border-color: #333;
         background: #0f0f0f;
-        transform: translateY(-5px);
     }
 
     .icon-wrapper {
@@ -312,5 +349,39 @@
         .header-section h2 {
             font-size: 2rem;
         }
+        .services {
+            padding: 60px 0;
+        }
+        .service-card {
+            padding: 30px 20px;
+        }
     }
 </style>
+
+<script>
+    const setupServices = () => {
+        const elements = document.querySelectorAll(
+            ".header-section, .service-card",
+        );
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("reveal");
+                        observer.unobserve(entry.target);
+                    }
+                });
+            },
+            {
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px",
+            },
+        );
+
+        elements.forEach((el) => observer.observe(el));
+    };
+
+    setupServices();
+    document.addEventListener("astro:after-swap", setupServices);
+</script>
