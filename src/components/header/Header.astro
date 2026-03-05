@@ -3,7 +3,6 @@
     <div class="bg-layer aurora-1"></div>
     <div class="bg-layer aurora-2"></div>
     <div class="bg-layer aurora-3"></div>
-    <div class="bg-layer scan-line"></div>
     <div class="dot-grid"></div>
 
     <div class="container hero-container">
@@ -13,11 +12,12 @@
         </div>
 
         <h1>
+            <span class="scan-line"></span>
             Construimos el <span class="highlight">Futuro Digital</span> de tu proyecto
         </h1>
 
         <p class="hero-description">
-            En Ryzeck, transformamos ideas audaces en aplicaciones web y móviles
+            En <strong class="brand">Ryzeck</strong>, transformamos ideas audaces en aplicaciones web y móviles
             de alto impacto. Especialistas en SaaS y desarrollo a medida para
             empresas que no se detienen.
         </p>
@@ -62,13 +62,10 @@
         height: 700px;
         top: 50%;
         left: 50%;
-        transform: translate(-50%, -50%);
-        background: radial-gradient(
-            circle,
-            rgba(16, 185, 129, 0.22) 0%,
-            transparent 70%
-        );
-        animation: aurora1 6s ease-in-out infinite;
+        --px: 0px; --py: 0px;
+        transform: translate(calc(-50% + var(--px)), calc(-50% + var(--py)));
+        background: radial-gradient(circle, rgba(16, 185, 129, 0.22) 0%, transparent 70%);
+        animation: aurora1float 6s ease-in-out infinite;
         z-index: 2;
     }
 
@@ -77,12 +74,10 @@
         height: 300px;
         top: 20%;
         left: 15%;
-        background: radial-gradient(
-            circle,
-            rgba(16, 185, 129, 0.1) 0%,
-            transparent 70%
-        );
-        animation: aurora2 8s ease-in-out infinite 1s;
+        --px: 0px; --py: 0px;
+        transform: translate(var(--px), var(--py));
+        background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%);
+        animation: aurora2float 8s ease-in-out infinite 1s;
         z-index: 2;
     }
 
@@ -91,30 +86,38 @@
         height: 400px;
         bottom: 10%;
         right: 10%;
-        background: radial-gradient(
-            circle,
-            rgba(5, 150, 105, 0.12) 0%,
-            transparent 70%
-        );
-        animation: aurora3 10s ease-in-out infinite 2s;
+        --px: 0px; --py: 0px;
+        transform: translate(var(--px), var(--py));
+        background: radial-gradient(circle, rgba(5, 150, 105, 0.12) 0%, transparent 70%);
+        animation: aurora3float 10s ease-in-out infinite 2s;
         z-index: 2;
     }
 
     .scan-line {
-        width: 100%;
+        position: absolute;
+        left: -5%;
+        width: 110%;
         height: 2px;
-        top: -2px;
-        left: 0;
-        border-radius: 0;
-        filter: none;
+        top: 0;
         background: linear-gradient(
             90deg,
-            transparent,
-            rgba(16, 185, 129, 0.4),
-            transparent
+            transparent 0%,
+            rgba(16, 185, 129, 0.15) 10%,
+            rgba(16, 185, 129, 0.7) 50%,
+            rgba(16, 185, 129, 0.15) 90%,
+            transparent 100%
         );
-        animation: scanDown 5s linear infinite;
-        z-index: 3;
+        box-shadow: 0 0 12px rgba(16, 185, 129, 0.5), 0 0 4px rgba(16, 185, 129, 0.8);
+        animation: scanThroughText 4s linear infinite;
+        pointer-events: none;
+        z-index: 20;
+    }
+
+    @keyframes scanThroughText {
+        0%   { top: -4px;  opacity: 0;   }
+        5%   {             opacity: 1;   }
+        95%  {             opacity: 0.8; }
+        100% { top: 110%;  opacity: 0;   }
     }
 
     .dot-grid {
@@ -141,71 +144,25 @@
         pointer-events: none;
     }
 
-    @keyframes aurora1 {
-        0%,
-        100% {
-            transform: translate(-50%, -50%) scale(1);
-            opacity: 0.8;
-        }
-        33% {
-            transform: translate(-48%, -53%) scale(1.15);
-            opacity: 1;
-        }
-        66% {
-            transform: translate(-52%, -47%) scale(0.9);
-            opacity: 0.6;
-        }
+    @keyframes aurora1float {
+        0%, 100% { opacity: 0.8; }
+        33%       { opacity: 1;   }
+        66%       { opacity: 0.6; }
     }
 
-    @keyframes aurora2 {
-        0%,
-        100% {
-            transform: translate(0, 0) scale(1);
-            opacity: 0.6;
-        }
-        50% {
-            transform: translate(60px, 40px) scale(1.3);
-            opacity: 1;
-        }
+    @keyframes aurora2float {
+        0%, 100% { opacity: 0.6; }
+        50%       { opacity: 1;   }
     }
 
-    @keyframes aurora3 {
-        0%,
-        100% {
-            transform: translate(0, 0) scale(1);
-            opacity: 0.5;
-        }
-        50% {
-            transform: translate(-40px, -30px) scale(1.2);
-            opacity: 0.9;
-        }
-    }
-
-    @keyframes scanDown {
-        0% {
-            top: -2px;
-            opacity: 0;
-        }
-        5% {
-            opacity: 1;
-        }
-        95% {
-            opacity: 0.6;
-        }
-        100% {
-            top: 100%;
-            opacity: 0;
-        }
+    @keyframes aurora3float {
+        0%, 100% { opacity: 0.5; }
+        50%       { opacity: 0.9; }
     }
 
     @keyframes gridPulse {
-        0%,
-        100% {
-            opacity: 0.6;
-        }
-        50% {
-            opacity: 1;
-        }
+        0%, 100% { opacity: 0.6; }
+        50%       { opacity: 1;   }
     }
 
     .hero-container {
@@ -218,6 +175,7 @@
     }
 
     h1 {
+        position: relative;
         font-size: clamp(2.5rem, 6vw, 4rem);
         line-height: 1.1;
         max-width: 970px;
@@ -229,6 +187,7 @@
         opacity: 0;
         transform: translateY(20px);
         animation: heroFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+        overflow: visible;
     }
 
     .highlight {
@@ -246,13 +205,8 @@
     }
 
     @keyframes shimmer {
-        0%,
-        100% {
-            background-position: 0% 50%;
-        }
-        50% {
-            background-position: 100% 50%;
-        }
+        0%, 100% { background-position: 0% 50%;   }
+        50%       { background-position: 100% 50%; }
     }
 
     .hero-description {
@@ -265,6 +219,12 @@
         opacity: 0;
         transform: translateY(20px);
         animation: heroFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+    }
+
+    .brand {
+        color: #10b981;
+        font-weight: 800;
+        font-style: normal;
     }
 
     .badge {
@@ -299,13 +259,8 @@
     }
 
     @keyframes dotPulse {
-        0%,
-        100% {
-            box-shadow: 0 0 6px rgba(16, 185, 129, 0.5);
-        }
-        50% {
-            box-shadow: 0 0 18px rgba(16, 185, 129, 0.9);
-        }
+        0%, 100% { box-shadow: 0 0 6px rgba(16, 185, 129, 0.5);  }
+        50%       { box-shadow: 0 0 18px rgba(16, 185, 129, 0.9); }
     }
 
     .btn-primary {
@@ -471,4 +426,45 @@
     window.addEventListener("resize", resize);
     init();
     loop();
+
+    // ── Parallax ──
+    const a1 = document.querySelector('.aurora-1') as HTMLElement;
+    const a2 = document.querySelector('.aurora-2') as HTMLElement;
+    const a3 = document.querySelector('.aurora-3') as HTMLElement;
+
+    const layers = [
+        { el: a1, strength: -28 },
+        { el: a2, strength: -18 },
+        { el: a3, strength: -12 },
+    ];
+
+    let targetX = 0, targetY = 0;
+    const current = layers.map(() => ({ x: 0, y: 0 }));
+
+    const hero = document.querySelector('.hero') as HTMLElement;
+
+    hero.addEventListener('mousemove', (e: MouseEvent) => {
+        const rect = hero.getBoundingClientRect();
+        targetX = ((e.clientX - rect.left) / rect.width  - 0.5) * 2;
+        targetY = ((e.clientY - rect.top)  / rect.height - 0.5) * 2;
+    });
+
+    hero.addEventListener('mouseleave', () => {
+        targetX = 0;
+        targetY = 0;
+    });
+
+    function lerp(a: number, b: number, t: number) { return a + (b - a) * t; }
+
+    function parallaxLoop() {
+        layers.forEach((layer, i) => {
+            current[i].x = lerp(current[i].x, targetX * layer.strength, 0.06);
+            current[i].y = lerp(current[i].y, targetY * layer.strength, 0.06);
+            layer.el.style.setProperty('--px', `${current[i].x}px`);
+            layer.el.style.setProperty('--py', `${current[i].y}px`);
+        });
+        requestAnimationFrame(parallaxLoop);
+    }
+
+    parallaxLoop();
 </script>
