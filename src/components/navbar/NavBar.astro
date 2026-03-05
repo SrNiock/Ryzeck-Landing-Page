@@ -130,7 +130,9 @@
         border: none;
         cursor: pointer;
         padding: 10px;
-        z-index: 1001;
+        z-index: 1002;
+        touch-action: manipulation;
+        position: relative;
     }
     .bar {
         width: 25px;
@@ -167,16 +169,18 @@
     }
 
     @media (max-width: 768px) {
+        .mobile-menu-btn {
+            display: flex !important; 
+        }
+
         .mobile-only {
             display: block;
             width: 100%;
             text-align: center;
         }
+
         .btn-contacto {
-            display: none;
-        }
-        .mobile-menu-btn {
-            display: flex;
+            display: none; 
         }
         .nav-links {
             position: fixed;
@@ -190,61 +194,79 @@
             padding-top: 4rem;
             align-items: center;
             gap: 2.5rem;
+
             opacity: 0;
             visibility: hidden;
-            transform: translateY(-20px);
-            transition: all 0.4s ease;
+            overflow: hidden; 
+            transform: translateY(-10px);
+
+            transition:
+                transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.2s linear,
+                visibility 0s linear 0.2s; 
+            will-change: transform, opacity;
         }
+
         .nav-links.active {
             opacity: 1;
             visibility: visible;
             transform: translateY(0);
+            transition:
+                transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.2s linear,
+                visibility 0s linear 0s; 
         }
-        .nav-links a {
-            font-size: 1.5rem;
+
+        .nav-links:not(.active) a,
+        .nav-links:not(.active) .btn-contacto-mobile {
+            transition: none !important;
+            opacity: 0 !important;
         }
     }
 </style>
 
 <script>
-    const initNavbar = () => {
+    const setupNavbar = () => {
+        const btn = document.querySelector(
+            ".mobile-menu-btn",
+        ) as HTMLElement | null;
+        const menu = document.querySelector(".nav-links") as HTMLElement | null;
         const navbar = document.getElementById("navbar");
 
-        const handleScroll = () => {
-            if (window.scrollY > 20) {
-                navbar?.classList.add("scrolled");
-            } else {
-                navbar?.classList.remove("scrolled");
-            }
+        if (!btn || !menu) return;
+
+        const toggle = () => {
+            const isOpened = menu.classList.contains("active");
+
+            btn.classList.toggle("is-active");
+            menu.classList.toggle("active");
+
+            btn.setAttribute("aria-expanded", (!isOpened).toString());
+
+            setTimeout(() => {
+                document.body.style.overflow = isOpened ? "" : "hidden";
+            }, 10);
         };
-        window.addEventListener("scroll", handleScroll);
 
-        const btn = document.querySelector(".mobile-menu-btn") as HTMLElement;
-        const menu = document.querySelector(".nav-links") as HTMLElement;
+        btn.onclick = toggle;
 
-        if (btn && menu && btn.parentNode) {
-            const newBtn = btn.cloneNode(true) as HTMLElement;
-            btn.parentNode.replaceChild(newBtn, btn);
+        menu.querySelectorAll("a").forEach((link) => {
+            link.onclick = () => {
+                btn.classList.remove("is-active");
+                menu.classList.remove("active");
+                btn.setAttribute("aria-expanded", "false");
+                document.body.style.overflow = "";
+            };
+        });
 
-            newBtn.addEventListener("click", () => {
-                const isExpanded =
-                    newBtn.getAttribute("aria-expanded") === "true";
-                newBtn.classList.toggle("is-active");
-                menu.classList.toggle("active");
-                newBtn.setAttribute("aria-expanded", (!isExpanded).toString());
-                document.body.style.overflow = isExpanded ? "auto" : "hidden";
-            });
-
-            menu.querySelectorAll("a").forEach((link) => {
-                link.addEventListener("click", () => {
-                    newBtn.classList.remove("is-active");
-                    menu.classList.remove("active");
-                    document.body.style.overflow = "auto";
-                });
-            });
-        }
+        const onScroll = () => {
+            if (window.scrollY > 10) navbar?.classList.add("scrolled");
+            else navbar?.classList.remove("scrolled");
+        };
+        window.addEventListener("scroll", onScroll, { passive: true });
     };
 
-    initNavbar();
-    document.addEventListener("astro:after-swap", initNavbar);
+    setupNavbar();
+    document.addEventListener("astro:after-swap", setupNavbar);
+    document.addEventListener("astro:page-load", setupNavbar);
 </script>
