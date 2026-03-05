@@ -113,11 +113,19 @@
     color: white;
     font-family: "Inter", sans-serif;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+
+  .modal:not([open]) {
+    display: none;
+    pointer-events: none;
   }
 
   .modal[open] {
-    animation: fadeIn 0.3s ease-out;
+    animation: fadeIn 0.3s ease-out forwards;
+    display: flex;
   }
 
   @keyframes fadeIn {
@@ -134,21 +142,31 @@
   .modal-container {
     padding: 2.5rem;
     position: relative;
+    height: 100%;
   }
 
   .close-btn {
     position: absolute;
-    top: 1.5rem;
-    right: 1.5rem;
+    top: 1rem; 
+    right: 1rem; 
+    padding: 0.5rem; 
     background: transparent;
     border: none;
     color: #666;
     cursor: pointer;
-    transition: color 0.2s;
+    transition: color 0.1s ease-in-out;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .close-btn:hover {
     color: white;
+  }
+
+  .modal-header {
+    padding-right: 2.5rem; 
   }
 
   .modal-header h2 {
@@ -177,6 +195,18 @@
   @media (max-width: 600px) {
     .form-group-row {
       grid-template-columns: 1fr;
+    }
+    .modal-container {
+      padding: 1.5rem;
+    }
+    .close-btn {
+      top: 0.75rem;
+      right: 0.75rem;
+    }
+
+    .modal-header h2 {
+      font-size: 1.35rem; 
+      line-height: 1.2;
     }
   }
 
@@ -222,13 +252,13 @@
     cursor: pointer;
     margin-top: 1rem;
     transition:
-      transform 0.2s,
-      background-color 0.2s;
+      transform 0.15s,
+      background-color 0.1s;
   }
 
   .submit-btn:hover {
     background: #e0e0e0;
-    transform: translateY(-2px);
+    transform: translateY(-1px);
   }
 
   .custom-select {
@@ -277,7 +307,7 @@
     visibility: hidden;
     transform: translateY(-10px);
     transition: all 0.2s ease;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
     overflow: hidden;
   }
 
@@ -304,7 +334,6 @@
     color: white;
     background: #151515;
   }
-
 </style>
 
 <script>
@@ -315,67 +344,60 @@
     );
     const closeBtn = document.querySelector("#close-modal");
 
-    if (modal && openBtns && closeBtn) {
+    // Select Elements
+    const customSelect = document.getElementById("custom-select");
+    const trigger = customSelect?.querySelector(".select-trigger");
+    const options = customSelect?.querySelectorAll(".option");
+    const text = document.getElementById("select-text");
+    const hiddenInput = document.getElementById(
+      "real-type-input",
+    ) as HTMLInputElement;
+
+    if (modal) {
+      // Abrir
       openBtns.forEach((btn) => {
-        btn.addEventListener("click", (e) => {
+        btn.addEventListener("click", () => {
           modal.showModal();
           document.body.style.overflow = "hidden";
         });
       });
 
-      closeBtn.addEventListener("click", () => {
+      // Cerrar con botón X
+      closeBtn?.addEventListener("click", (e) => {
+        e.stopPropagation(); // Evita interferencias
         modal.close();
         document.body.style.overflow = "auto";
       });
 
+      // Cerrar al hacer click fuera (en el backdrop)
       modal.addEventListener("click", (e) => {
-        const dialogDimensions = modal.getBoundingClientRect();
-        if (
-          e.clientX < dialogDimensions.left ||
-          e.clientX > dialogDimensions.right ||
-          e.clientY < dialogDimensions.top ||
-          e.clientY > dialogDimensions.bottom
-        ) {
+        if (e.target === modal) {
           modal.close();
           document.body.style.overflow = "auto";
         }
       });
+
+      // Lógica del Select (dentro de setup para que funcione tras navegar)
+      trigger?.addEventListener("click", () =>
+        customSelect?.classList.toggle("active"),
+      );
+
+      options?.forEach((opt) => {
+        opt.addEventListener("click", () => {
+          const value = opt.getAttribute("data-value");
+          if (value && text && hiddenInput) {
+            text.textContent = opt.textContent;
+            hiddenInput.value = value;
+            options.forEach((o) => o.classList.remove("selected"));
+            opt.classList.add("selected");
+            customSelect?.classList.remove("active");
+          }
+        });
+      });
     }
   };
 
+  // Ejecución inicial y en cambios de página de Astro
   setupModal();
   document.addEventListener("astro:after-swap", setupModal);
-
-  const customSelect = document.getElementById('custom-select');
-  const trigger = customSelect?.querySelector('.select-trigger');
-  const options = customSelect?.querySelectorAll('.option');
-  const text = document.getElementById('select-text');
-  const hiddenInput = document.getElementById('real-type-input') as HTMLInputElement;
-
-  trigger?.addEventListener('click', () => {
-    customSelect?.classList.toggle('active');
-  });
-
-  options?.forEach(opt => {
-    opt.addEventListener('click', () => {
-      const value = opt.getAttribute('data-value');
-      const label = opt.textContent;
-
-      if (value && label) {
-        text!.textContent = label;
-        hiddenInput!.value = value;
-        
-        options.forEach(o => o.classList.remove('selected'));
-        opt.classList.add('selected');
-        
-        customSelect?.classList.remove('active');
-      }
-    });
-  });
-
-  document.addEventListener('click', (e) => {
-    if (!customSelect?.contains(e.target as Node)) {
-      customSelect?.classList.remove('active');
-    }
-  });
 </script>
