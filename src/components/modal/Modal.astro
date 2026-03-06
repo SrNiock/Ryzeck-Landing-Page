@@ -344,7 +344,6 @@
     );
     const closeBtn = document.querySelector("#close-modal");
 
-    // Select Elements
     const customSelect = document.getElementById("custom-select");
     const trigger = customSelect?.querySelector(".select-trigger");
     const options = customSelect?.querySelectorAll(".option");
@@ -354,7 +353,6 @@
     ) as HTMLInputElement;
 
     if (modal) {
-      // Abrir
       openBtns.forEach((btn) => {
         btn.addEventListener("click", () => {
           modal.showModal();
@@ -362,14 +360,12 @@
         });
       });
 
-      // Cerrar con botón X
       closeBtn?.addEventListener("click", (e) => {
-        e.stopPropagation(); // Evita interferencias
+        e.stopPropagation();
         modal.close();
         document.body.style.overflow = "auto";
       });
 
-      // Cerrar al hacer click fuera (en el backdrop)
       modal.addEventListener("click", (e) => {
         if (e.target === modal) {
           modal.close();
@@ -377,7 +373,6 @@
         }
       });
 
-      // Lógica del Select (dentro de setup para que funcione tras navegar)
       trigger?.addEventListener("click", () =>
         customSelect?.classList.toggle("active"),
       );
@@ -397,7 +392,6 @@
     }
   };
 
-  // Ejecución inicial y en cambios de página de Astro
   setupModal();
   document.addEventListener("astro:after-swap", setupModal);
 </script>
