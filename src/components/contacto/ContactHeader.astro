@@ -77,6 +77,12 @@ import ContactForm from "../forms/ContactForm.astro";
 </section>
 
 <style>
+    .footer-reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s cubic-bezier(0.2, 1, 0.3, 1);
+    }
+
     .grid-contact {
         display: grid;
         grid-template-columns: 1.1fr 0.9fr;
