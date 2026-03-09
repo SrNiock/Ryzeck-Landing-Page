@@ -33,24 +33,23 @@ const { title = "Ryzeck" } = Astro.props;
 							}
 						});
 					},
-					{ threshold: 0.1, rootMargin: "0px 0px -50px 0px" },
+					{ threshold: 0.05, rootMargin: "50px" },
 				);
-
 				const targets = document.querySelectorAll(
 					".header-section, .service-card, .step-card, .footer-reveal, .benefit-item, .image-wrapper",
 				);
 
 				targets.forEach((el) => {
 					observer.observe(el);
-					if (el.getBoundingClientRect().top < window.innerHeight) {
+					const rect = el.getBoundingClientRect();
+					if (rect.top < window.innerHeight) {
 						el.classList.add("reveal");
 					}
 				});
 			};
 
-			document.addEventListener("DOMContentLoaded", setupAnimations);
 			document.addEventListener("astro:page-load", setupAnimations);
-			document.addEventListener("astro:after-swap", setupAnimations);
+			setupAnimations();
 		</script>
 	</body>
 </html>
