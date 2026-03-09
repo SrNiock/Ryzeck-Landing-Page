@@ -39,20 +39,22 @@ import Layout from "../layouts/Layout.astro";
 
 <style>
     .success-section {
-        min-height: 100vh;
+        height: 100vh;
+        min-height: 0 !important;
+        padding: 0 !important;
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 120px 0 80px;
         background-color: #000;
         border-bottom: none !important;
+        overflow: hidden;
     }
 
     .success-wrapper {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        gap: 2rem;
+        gap: 1.6rem;
         max-width: 560px;
         animation: fadeUp 0.9s cubic-bezier(0.2, 1, 0.3, 1) forwards;
         opacity: 0;
@@ -196,10 +198,13 @@ import Layout from "../layouts/Layout.astro";
         to { stroke-dashoffset: 0; }
     }
 
+    :global(body) {
+        overflow: hidden;
+    }
+
     @media (max-width: 600px) {
         .success-section {
-            align-items: flex-start;
-            padding-top: 130px;
+            align-items: center;
         }
 
         .actions {
