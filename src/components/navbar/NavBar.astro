@@ -1,3 +1,9 @@
+---
+const { pathname } = Astro.url;
+const isHome = pathname === "/";
+const isContactPage = pathname === "/contacto";
+---
+
 <nav id="navbar" class="navbar">
     <div class="container nav-wrapper">
         <a href="/" class="logo">
@@ -15,16 +21,18 @@
         </button>
 
         <ul class="nav-links">
-            <li><a href="#servicios">SERVICIOS</a></li>
-            <li><a href="#procesos">PROCESOS</a></li>
-            <li><a href="#nosotros">NOSOTROS</a></li>
-            <li><a href="#proyectos">PROYECTOS</a></li>
-            <li class="mobile-only">
-                <button class="btn-contacto-mobile">CONTACTO</button>
-            </li>
+            <li><a href={isHome ? "#servicios" : "/#servicios"}>SERVICIOS</a></li>
+            <li><a href={isHome ? "#procesos" : "/#procesos"}>PROCESOS</a></li>
+            <li><a href={isHome ? "#nosotros" : "/#nosotros"}>NOSOTROS</a></li>
+            <li><a href="/proyectos">PROYECTOS</a></li>
+            {!isContactPage && (
+                <li class="mobile-only">
+                    <button class="btn-contacto-mobile">CONTACTO</button>
+                </li>
+            )}
         </ul>
 
-        <button class="btn-contacto"> CONTACTO </button>
+        {!isContactPage && (<button class="btn-contacto"> CONTACTO </button>)}
     </div>
 </nav>
 

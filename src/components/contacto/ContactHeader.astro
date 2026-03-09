@@ -1,0 +1,179 @@
+---
+import ContactForm from "../forms/ContactForm.astro";
+---
+
+<section class="contact-page">
+    <div class="container grid-contact">
+        <div class="contact-info footer-reveal">
+            <div class="header-section">
+                <h2>
+                    ¿TIENES UNA IDEA? <br />
+                    <span class="highlight">HABLEMOS.</span>
+                </h2>
+                <div class="underline"></div>
+            </div>
+            <p class="contact-description">
+                Estamos listos para escuchar tu próximo desafío tecnológico.
+                Cuéntanos tu proyecto y nuestro equipo se pondrá en contacto
+                contigo en menos de 24 horas.
+            </p>
+
+            <div class="direct-channels">
+                <div class="channel-item">
+                    <div class="icon-circle">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="20"
+                            height="20"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            ><rect width="20" height="16" x="2" y="4" rx="2"
+                            ></rect><path
+                                d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"
+                            ></path></svg
+                        >
+                    </div>
+                    <div class="channel-content">
+                        <span class="label">EMAIL</span>
+                        <a href="mailto:ryzeck@gmail.com" class="value"
+                            >ryzeck@gmail.com</a
+                        >
+                    </div>
+                </div>
+
+                <div class="channel-item">
+                    <div class="icon-circle">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="20"
+                            height="20"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            ><path
+                                d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"
+                            ></path><circle cx="12" cy="10" r="3"></circle></svg
+                        >
+                    </div>
+                    <div class="channel-content">
+                        <span class="label">UBICACIÓN</span>
+                        <p class="value">España</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-container footer-reveal">
+            <ContactForm />
+        </div>
+    </div>
+</section>
+
+<style>
+    .grid-contact {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 100px;
+        align-items: start;
+    }
+
+    .highlight { color: #10b981; }
+
+    .contact-description {
+        color: #888;
+        font-size: 1.1rem;
+        line-height: 1.6;
+        margin: 2.5rem 0;
+        max-width: 450px;
+    }
+
+    .direct-channels {
+        display: flex;
+        flex-direction: column;
+        gap: 2.5rem;
+        margin-top: 3.5rem;
+    }
+
+    .channel-item {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+    }
+
+    .icon-circle {
+        width: 54px;
+        height: 54px;
+        background-color: #0d0d0d; 
+        border: 1px solid #1a1a1a;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #10b981; 
+        flex-shrink: 0;
+        transition: all 0.3s ease;
+    }
+
+    /*
+    .channel-item:hover .icon-circle {
+        border-color: #10b981;
+        background-color: rgba(16, 185, 129, 0.05);
+        transform: translateY(-3px);
+    }*/
+
+    .channel-content {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .label {
+        display: block;
+        font-size: 0.65rem;
+        font-weight: 800;
+        color: #10b981;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+    }
+
+    .value {
+        font-size: 1.15rem;
+        color: #ffffff;
+        font-weight: 500;
+        text-decoration: none;
+        margin: 0;
+        transition: color 0.3s;
+    }
+
+    a.value:hover {
+        color: #10b981;
+    }
+
+    .form-container {
+        background-color: #0d0d0d;
+        padding: 50px;
+        border-radius: 16px;
+        border: 1px solid #1a1a1a;
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+    }
+
+    @media (max-width: 1024px) {
+        .grid-contact {
+            grid-template-columns: 1fr;
+            gap: 60px;
+        }
+        .contact-page { padding-top: 120px; }
+        .contact-description { max-width: 100%; }
+    }
+
+    @media (max-width: 600px) {
+        .form-container { padding: 30px 20px; }
+    }
+</style>

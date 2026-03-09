@@ -1,3 +1,7 @@
+---
+import ContactForm from "../forms/ContactForm.astro";
+---
+
 <dialog id="contact-modal" class="modal">
   <div class="modal-container">
     <button id="close-modal" class="close-btn" aria-label="Cerrar modal">
@@ -24,76 +28,7 @@
       <p>Cuéntanos un poco sobre lo que tienes en mente.</p>
     </div>
 
-    <form class="modal-form">
-      <div class="form-group-row">
-        <div class="form-group">
-          <label for="name">NOMBRE</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            placeholder="Juan Pérez"
-            required
-          />
-        </div>
-        <div class="form-group">
-          <label for="email">EMAIL</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="juan@startup.com"
-            required
-          />
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label>TIPO DE PROYECTO</label>
-        <div class="custom-select" id="custom-select">
-          <div class="select-trigger">
-            <span id="select-text">Desarrollo Web (Fullstack)</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg
-            >
-          </div>
-          <div class="select-options">
-            <div class="option selected" data-value="web">
-              Desarrollo Web (Fullstack)
-            </div>
-            <div class="option" data-value="multiplataforma">
-              Desarrollo multiplataforma (iOS & Android)
-            </div>
-            <div class="option" data-value="android">
-              Desarrollo Android Nativo
-            </div>
-            <div class="option" data-value="api">
-              Diseño y Desarrollo de APIs
-            </div>
-          </div>
-          <input type="hidden" name="type" id="real-type-input" value="web" />
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="message">MENSAJE</label>
-        <textarea
-          id="message"
-          name="message"
-          rows="4"
-          placeholder="Háblanos de tu idea..."></textarea>
-      </div>
-
-      <button type="submit" class="submit-btn">ENVIAR SOLICITUD</button>
-    </form>
+    <ContactForm />
   </div>
 </dialog>
 
@@ -116,6 +51,7 @@
     display: flex;
     flex-direction: column;
     overflow-y: auto;
+    border: none;
   }
 
   .modal:not([open]) {
@@ -180,22 +116,7 @@
     margin: 0 0 2rem 0;
   }
 
-  .modal-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-
-  .form-group-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-  }
-
   @media (max-width: 600px) {
-    .form-group-row {
-      grid-template-columns: 1fr;
-    }
     .modal-container {
       padding: 1.5rem;
     }
@@ -203,195 +124,53 @@
       top: 0.75rem;
       right: 0.75rem;
     }
-
     .modal-header h2 {
       font-size: 1.35rem; 
       line-height: 1.2;
     }
-  }
-
-  .form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .form-group label {
-    font-size: 0.7rem;
-    font-weight: 700;
-    color: #555;
-    letter-spacing: 0.05em;
-  }
-
-  .form-group input,
-  .form-group select,
-  .form-group textarea {
-    background: #111;
-    border: 1px solid #222;
-    padding: 0.8rem;
-    border-radius: 8px;
-    color: white;
-    font-family: inherit;
-    transition: border-color 0.2s;
-  }
-
-  .form-group input:focus,
-  .form-group select:focus,
-  .form-group textarea:focus {
-    outline: none;
-    border-color: #444;
-  }
-
-  .submit-btn {
-    background: white;
-    color: black;
-    border: none;
-    padding: 1rem;
-    border-radius: 8px;
-    font-weight: 700;
-    cursor: pointer;
-    margin-top: 1rem;
-    transition:
-      transform 0.15s,
-      background-color 0.1s;
-  }
-
-  .submit-btn:hover {
-    background: #e0e0e0;
-    transform: translateY(-1px);
-  }
-
-  .custom-select {
-    position: relative;
-    width: 100%;
-    user-select: none;
-  }
-
-  .select-trigger {
-    background: #111;
-    border: 1px solid #222;
-    padding: 0.9rem;
-    border-radius: 6px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    color: white;
-    font-size: 0.9rem;
-    transition: border-color 0.2s;
-  }
-
-  .custom-select.active .select-trigger {
-    border-color: #444;
-  }
-
-  .select-trigger svg {
-    color: #666;
-    transition: transform 0.3s ease;
-  }
-
-  .custom-select.active .select-trigger svg {
-    transform: rotate(180deg);
-  }
-
-  .select-options {
-    position: absolute;
-    top: calc(100% + 5px);
-    left: 0;
-    width: 100%;
-    background: #0d0d0d;
-    border: 1px solid #222;
-    border-radius: 6px;
-    z-index: 100;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-10px);
-    transition: all 0.2s ease;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-    overflow: hidden;
-  }
-
-  .custom-select.active .select-options {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-  }
-
-  .option {
-    padding: 0.9rem;
-    color: #888;
-    cursor: pointer;
-    font-size: 0.9rem;
-    transition: all 0.2s;
-  }
-
-  .option:hover {
-    background: #1a1a1a;
-    color: white;
-  }
-
-  .option.selected {
-    color: white;
-    background: #151515;
   }
 </style>
 
 <script>
   const setupModal = () => {
     const modal = document.querySelector("#contact-modal") as HTMLDialogElement;
-    const openBtns = document.querySelectorAll(
-      ".btn-contacto, .btn-contacto-mobile, .btn-primary",
-    );
+    const openBtns = document.querySelectorAll(".btn-contacto, .btn-contacto-mobile");
     const closeBtn = document.querySelector("#close-modal");
 
-    const customSelect = document.getElementById("custom-select");
-    const trigger = customSelect?.querySelector(".select-trigger");
-    const options = customSelect?.querySelectorAll(".option");
-    const text = document.getElementById("select-text");
-    const hiddenInput = document.getElementById(
-      "real-type-input",
-    ) as HTMLInputElement;
+    if (!modal) return;
 
-    if (modal) {
-      openBtns.forEach((btn) => {
-        btn.addEventListener("click", () => {
-          modal.showModal();
-          document.body.style.overflow = "hidden";
-        });
-      });
+    const openModal = () => {
+      modal.showModal();
+      document.body.style.overflow = "hidden";
+    };
 
-      closeBtn?.addEventListener("click", (e) => {
-        e.stopPropagation();
-        modal.close();
-        document.body.style.overflow = "auto";
-      });
+    const closeModal = () => {
+      modal.close();
+      document.body.style.overflow = "";
+    };
 
-      modal.addEventListener("click", (e) => {
-        if (e.target === modal) {
-          modal.close();
-          document.body.style.overflow = "auto";
-        }
-      });
+    openBtns.forEach((btn) => {
+      btn.addEventListener("click", openModal);
+    });
 
-      trigger?.addEventListener("click", () =>
-        customSelect?.classList.toggle("active"),
-      );
+    closeBtn?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      closeModal();
+    });
 
-      options?.forEach((opt) => {
-        opt.addEventListener("click", () => {
-          const value = opt.getAttribute("data-value");
-          if (value && text && hiddenInput) {
-            text.textContent = opt.textContent;
-            hiddenInput.value = value;
-            options.forEach((o) => o.classList.remove("selected"));
-            opt.classList.add("selected");
-            customSelect?.classList.remove("active");
-          }
-        });
-      });
-    }
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+
+
+    modal.addEventListener("cancel", () => {
+      document.body.style.overflow = "";
+    });
   };
 
   setupModal();
   document.addEventListener("astro:after-swap", setupModal);
+  document.addEventListener("astro:page-load", setupModal);
 </script>

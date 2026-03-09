@@ -1,0 +1,83 @@
+<section class="contact-faq footer-reveal">
+    <div class="container">
+        <div class="header-section">
+            <h2>Preguntas <span class="highlight">Frecuentes</span></h2>
+            <div class="underline"></div>
+        </div>
+
+        <div class="faq-grid">
+            <div class="faq-item">
+                <h3>¿Cuánto tiempo tarda en desarrollarse un proyecto?</h3>
+                <p>
+                    Depende de la complejidad. Un MVP suele tardar entre 4 y 8
+                    semanas, mientras que plataformas más robustas pueden llevar
+                    de 3 a 6 meses.
+                </p>
+            </div>
+            <div class="faq-item">
+                <h3>¿Qué tecnologías utilizáis?</h3>
+                <p>
+                    Somos expertos en el ecosistema de JavaScript/TypeScript,
+                    especializados en React, Next.js, Astro y Node.js para
+                    soluciones escalables.
+                </p>
+            </div>
+            <div class="faq-item">
+                <h3>¿Ofrecéis mantenimiento post-lanzamiento?</h3>
+                <p>
+                    Sí, ofrecemos planes de soporte y optimización continua para
+                    asegurar que tu producto digital crezca junto a tu negocio.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .contact-faq {
+        padding: 100px 0;
+    }
+
+    .faq-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 40px;
+        margin-top: 50px;
+    }
+
+    .faq-item {
+        background: #080808;
+        padding: 30px;
+        border-radius: 12px;
+        border: 1px solid #1a1a1a;
+        transition: all 0.3s ease;
+    }
+
+    .faq-item:hover {
+        border-color: #10b981;
+        transform: translateY(-5px);
+    }
+
+    .faq-item h3 {
+        color: #fff;
+        font-size: 1.1rem;
+        margin-bottom: 15px;
+        font-weight: 700;
+        line-height: 1.4;
+    }
+
+    .faq-item p {
+        color: #666;
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+        .contact-faq {
+            padding: 60px 0;
+        }
+        .faq-grid {
+            gap: 20px;
+        }
+    }
+</style>
