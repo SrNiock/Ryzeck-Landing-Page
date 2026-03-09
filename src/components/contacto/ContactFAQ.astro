@@ -61,8 +61,12 @@
     }
 
     .faq-item:hover {
-        border-color: #10b981;
-        transform: translateY(-5px);
+        transition:
+            transform 0.3s ease-out,
+            border-color 0.3s ease;
+        transition-delay: 0s !important;
+        transform: translateY(-10px) !important;
+        border-color: #333;
     }
 
     .faq-item h3 {
