@@ -1,7 +1,8 @@
 ---
 const { pathname } = Astro.url;
-const isHome = pathname === "/";
-const isContactPage = pathname === "/contacto";
+const cleanPath = pathname.replace(/\/$/, "") || "/";
+const isHome = cleanPath === "/";
+const isContactPage = cleanPath === "/contacto";
 ---
 
 <nav id="navbar" class="navbar">
