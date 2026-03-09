@@ -37,11 +37,19 @@ const { title = "Ryzeck" } = Astro.props;
 				);
 
 				const targets = document.querySelectorAll(
-					".header-section, .service-card, .step-card, .benefit-item, .image-wrapper, .footer-reveal"
+					".header-section, .service-card, .step-card, .footer-reveal",
 				);
-				targets.forEach((el) => observer.observe(el));
+
+				targets.forEach((el) => {
+					observer.observe(el);
+					if (el.getBoundingClientRect().top < window.innerHeight) {
+						el.classList.add("reveal");
+					}
+				});
 			};
-			setupAnimations();
+
+			document.addEventListener("DOMContentLoaded", setupAnimations);
+			document.addEventListener("astro:page-load", setupAnimations);
 			document.addEventListener("astro:after-swap", setupAnimations);
 		</script>
 	</body>
@@ -58,7 +66,8 @@ const { title = "Ryzeck" } = Astro.props;
 		scroll-behavior: smooth;
 	}
 
-	section, footer {
+	section,
+	footer {
 		padding: 100px 0;
 		border-bottom: 1px solid #1a1a1a;
 		background-color: #000;
